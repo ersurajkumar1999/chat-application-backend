@@ -21,7 +21,7 @@ app.use(cors());
 
 
 app.use('/', homeRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/v1/auth', authRoutes);
 // app.use('/api/v1', adminRoutes);
 // app.use('/api/v1', countryRoutes);
 // app.use('/api/v1', stateRoutes);

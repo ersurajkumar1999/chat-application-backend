@@ -20,6 +20,11 @@ const UserSchema = new mongoose.Schema({
         enum: ["Admin", "User"],
         default: "User",
     },
+    accountNumber: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     status: {
         type: Boolean,
         default: true,

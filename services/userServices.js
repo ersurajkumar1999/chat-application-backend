@@ -15,10 +15,19 @@ const deleteUserById = async (userId) => {
 const updateUserByID = async (userId, updatedUserData) => {
     return await userModel.findOneAndUpdate({ _id: userId }, { $set: updatedUserData }, { new: true });
 }
+const generateAccountNumber = async () => {
+    const accountNumber = Math.floor(100000000000 + Math.random() * 900000000000);
+    const existingUser = await userModel.findOne({ accountNumber });
+    if (existingUser) {
+        return generateAccountNumber();
+    }
+    return accountNumber;
+}
 module.exports = {
     createUser,
     findUserByEmail,
     findUserById,
     deleteUserById,
-    updateUserByID
+    updateUserByID,
+    generateAccountNumber
 }
