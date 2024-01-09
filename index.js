@@ -1,10 +1,15 @@
 const express = require("express");
 const http = require("http");
-const { PORT } = require('./utilities/config');
-const connectToDB = require("./db");
 const cors = require('cors');
 const dotenv = require("dotenv");
+const { PORT } = require('./utilities/config');
+const connectToDB = require("./db");
 const homeRoutes = require('./routes/homeRoutes');
+const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const countryRoutes = require('./routes/countryRoutes');
+const stateRoutes = require('./routes/stateRoutes');
+
 const app = express();
 dotenv.config();
 
@@ -16,6 +21,10 @@ app.use(cors());
 
 
 app.use('/', homeRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/v1', adminRoutes);
+app.use('/api/v1', countryRoutes);
+app.use('/api/v1', stateRoutes);
 
 connectToDB();
 const server = http.createServer(app);
