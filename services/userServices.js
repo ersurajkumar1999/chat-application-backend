@@ -15,6 +15,13 @@ const deleteUserById = async (userId) => {
 const updateUserByID = async (userId, updatedUserData) => {
     return await userModel.findOneAndUpdate({ _id: userId }, { $set: updatedUserData }, { new: true });
 }
+const totalUsers = async () => {
+    return await userModel.countDocuments();
+}
+const getUsers = async (skip, pageSize) => {
+    return await userModel.find().populate('profile').sort({ createdAt: -1 })
+    .skip(skip).limit(pageSize).exec();
+}
 const generateAccountNumber = async () => {
     const accountNumber = Math.floor(100000000000 + Math.random() * 900000000000);
     const existingUser = await userModel.findOne({ accountNumber });
@@ -29,5 +36,7 @@ module.exports = {
     findUserById,
     deleteUserById,
     updateUserByID,
-    generateAccountNumber
+    totalUsers,
+    getUsers,
+    generateAccountNumber,
 }

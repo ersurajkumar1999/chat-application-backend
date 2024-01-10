@@ -6,6 +6,7 @@ const { PORT } = require('./utilities/config');
 const connectToDB = require("./db");
 const homeRoutes = require('./routes/homeRoutes');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const countryRoutes = require('./routes/countryRoutes');
 const stateRoutes = require('./routes/stateRoutes');
@@ -25,6 +26,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1', adminRoutes);
 app.use('/api/v1', countryRoutes);
 app.use('/api/v1', stateRoutes);
+app.use('/api/v1', userRoutes);
 
 connectToDB();
 const server = http.createServer(app);

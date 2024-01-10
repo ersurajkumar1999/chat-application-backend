@@ -72,7 +72,7 @@ const signupUser = async (req, res) => {
             email,
             username,
             password: pass,
-            profileId: profile._id,
+            profile: profile._id,
             accountNumber
         }
         const user = await createUser(userInfo);

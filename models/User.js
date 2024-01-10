@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     },
     isEmailVerified: {
         type: Boolean,
-        default: true,
+        default: false,
     },
     password: {
         type: String,
@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    profileId: {
+    profile: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Profile',
     },
