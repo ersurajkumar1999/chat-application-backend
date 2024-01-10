@@ -8,6 +8,14 @@ const { comparePassword, hashedPassword } = require('../helper/PasswordManager')
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
+        if (!name || name.length < 3) {
+            return errorResponseMessage(res, "Name field is required");
+        }
+        if (validator.isEmpty(email)) {
+            return errorResponseMessage(res, "Email field is required");
+        } else if (!validator.isEmail(email)) {
+            return errorResponseMessage(res, "Invalid email address");
+        }
         const checkUserExists = await findUserByEmail(email);
         if (!checkUserExists) {
             return errorResponseMessage(res, "User is not registered, Please signup first!", 401);
