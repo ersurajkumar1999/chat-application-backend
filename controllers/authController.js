@@ -16,7 +16,7 @@ const loginUser = async (req, res) => {
         if (!password || password.length < 6) {
             return errorResponseMessage(res, "Password needs to be atleast 6 characters long.");
         }
-        
+
         const checkUserExists = await findUserByEmail(email);
         if (!checkUserExists) {
             return errorResponseMessage(res, "User is not registered, Please signup first!", 401);
@@ -46,7 +46,7 @@ const loginUser = async (req, res) => {
 
 const signupUser = async (req, res) => {
     try {
-        const { name, email, username, password } = req.body;
+        const { name, email, password } = req.body;
         if (!name || name.length < 3) {
             return errorResponseMessage(res, "Name field is required");
         }
@@ -55,13 +55,11 @@ const signupUser = async (req, res) => {
         } else if (!validator.isEmail(email)) {
             return errorResponseMessage(res, "Invalid email address");
         }
-        if (!username || username.length > 20 || username.length < 3) {
-            return errorResponseMessage(res, "Username character length must be in range of 3-20.");
-        }
         if (!password || password.length < 6) {
             return errorResponseMessage(res, "Password needs to be atleast 6 characters long.");
         }
-
+        let parts = email.split('@');
+        let username = parts[0];
         const checkUserExists = await findUserByEmail(email);
         if (checkUserExists) {
             return errorResponseMessage(res, "User email already exists");
@@ -83,5 +81,47 @@ const signupUser = async (req, res) => {
         return errorResponseMessage(res, "Something went wrong: " + error.message);
     }
 }
+const adminLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (validator.isEmpty(email)) {
+            return errorResponseMessage(res, "Email field is required");
+        } else if (!validator.isEmail(email)) {
+            return errorResponseMessage(res, "Invalid email address");
+        }
+        if (!password || password.length < 6) {
+            return errorResponseMessage(res, "Password needs to be atleast 6 characters long.");
+        }
 
-module.exports = { loginUser, signupUser }
+        const checkUserExists = await findUserByEmail(email);
+        if (!checkUserExists) {
+            return errorResponseMessage(res, "User is not registered, Please signup first!", 401);
+        }
+
+        if (checkUserExists.userType !== "Admin") {
+            return errorResponseMessage(res, "Invalid User Type!", 401);
+        }
+        const checkPassword = await comparePassword(password, checkUserExists.password);
+        if (!checkPassword) {
+            return errorResponseMessage(res, "Incorrect Password", 401);
+        }
+        const token = jwt.sign(
+            {
+                email: checkUserExists.email,
+                id: checkUserExists._id,
+                userType: checkUserExists.userType
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '7d'
+            }
+        );
+        checkUserExists.token = "Bearer " + token;
+        return successResponseMessage(res, "Login successfully121!", checkUserExists);
+    } catch (error) {
+        return errorResponseMessage(res, "Something went wrong: " + error.message);
+    }
+
+}
+
+module.exports = { loginUser, signupUser, adminLogin }
