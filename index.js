@@ -6,9 +6,9 @@ const { PORT } = require('./utilities/config');
 const connectToDB = require("./db");
 const homeRoutes = require('./routes/homeRoutes');
 const authRoutes = require('./routes/authRoutes');
-// const adminRoutes = require('./routes/adminRoutes');
-// const countryRoutes = require('./routes/countryRoutes');
-// const stateRoutes = require('./routes/stateRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const countryRoutes = require('./routes/countryRoutes');
+const stateRoutes = require('./routes/stateRoutes');
 
 const app = express();
 dotenv.config();
@@ -22,13 +22,13 @@ app.use(cors());
 
 app.use('/', homeRoutes);
 app.use('/api/v1/auth', authRoutes);
-// app.use('/api/v1', adminRoutes);
-// app.use('/api/v1', countryRoutes);
-// app.use('/api/v1', stateRoutes);
+app.use('/api/v1', adminRoutes);
+app.use('/api/v1', countryRoutes);
+app.use('/api/v1', stateRoutes);
 
 connectToDB();
 const server = http.createServer(app);
 
-server.listen(PORT, async () => {
-   await console.log(`server up on port ${PORT}`);
+server.listen(PORT, () => {
+   console.log(`server up on port ${PORT}`);
 });
