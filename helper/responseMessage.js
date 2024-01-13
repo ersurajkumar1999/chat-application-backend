@@ -8,4 +8,8 @@ const errorResponseMessage = async (res, message, errorCode = 400) => {
 const paginationResponseMessage = async (res, data) => {
     return res.status(200).send(data);
 }
-module.exports = { successResponseMessage, errorResponseMessage, paginationResponseMessage }
+module.exports = {
+    successResponseMessage,
+    errorResponseMessage,
+    paginationResponseMessage
+}

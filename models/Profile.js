@@ -5,6 +5,11 @@ const profileSchema = new mongoose.Schema({
         trim: true,
         default: null
     },
+    displayName: {
+        type: String,
+        trim: true,
+        default: null
+    },
     gender: {
         type: String,
         trim: true,
@@ -25,13 +30,47 @@ const profileSchema = new mongoose.Schema({
         trim: true,
         default: null
     },
+    isNumberVerified: {
+        type: Boolean,
+        default: false,
+    },
     image: {
-        type: Number,
+        type: String,
         trim: true,
         default: null
     },
     bioImage: {
-        type: Number,
+        type: String,
+        trim: true,
+        default: null
+    },
+    country: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    state: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    city: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    address1: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    address2: {
+        type: String,
+        trim: true,
+        default: null
+    },
+    pinCode: {
+        type: String,
         trim: true,
         default: null
     },

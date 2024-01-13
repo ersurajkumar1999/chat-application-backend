@@ -10,6 +10,9 @@ const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const countryRoutes = require('./routes/countryRoutes');
 const stateRoutes = require('./routes/stateRoutes');
+const cityRoutes = require('./routes/cityRoutes');
+const friendShipRoutes = require('./routes/friendShipRoutes');
+const imageRoutes = require('./routes/imageRoutes');
 
 const app = express();
 dotenv.config();
@@ -27,6 +30,9 @@ app.use('/api/v1', adminRoutes);
 app.use('/api/v1', countryRoutes);
 app.use('/api/v1', stateRoutes);
 app.use('/api/v1', userRoutes);
+app.use('/api/v1', cityRoutes);
+app.use('/api/v1', friendShipRoutes);
+app.use('/api/v1', imageRoutes);
 
 connectToDB();
 const server = http.createServer(app);

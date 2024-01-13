@@ -15,7 +15,7 @@ const create = async (req, res) => {
         if (!stateName) {
             return errorResponseMessage(res, "State Name is required!");
         }
-        const state = await createState({ countryId, stateName })
+        const state = await createState({ country:countryId, stateName })
         return successResponseMessage(res, "Country created successfully!", state);
     } catch (error) {
         return errorResponseMessage(res, "Something went wrong: " + error.message);

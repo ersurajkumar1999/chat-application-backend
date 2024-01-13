@@ -3,13 +3,18 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
+        unique: true,
+        lowercase: true,
+        trim: true,
         required: true,
-        unique: true
+        minlength: 3
     },
     email: {
         type: String,
-        required: true,
-        unique: true
+        unique: true,
+        lowercase: true,
+        trim: true,
+        required: true
     },
     isEmailVerified: {
         type: Boolean,
@@ -45,10 +50,18 @@ const UserSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    profile: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile',
-    },
+    profile: { type: mongoose.Schema.Types.ObjectId, ref: 'Profile' },
+
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+    friendRequestsSent: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FriendShip' }],
+
+    friendRequestsReceived: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FriendShip' }],
+
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    
     token: {
         type: String,
     }
