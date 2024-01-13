@@ -5,7 +5,7 @@ const createState = async (stateData) => {
 };
 
 const getAllStates = async (skip, pageSize) => {
-    return await State.find().populate('countryId', 'name')
+    return await State.find().sort({ createdAt: -1 }).populate('country', 'name')
         .skip(skip)
         .limit(pageSize)
         .exec() // Populate the 'country' field with only the 'name' property

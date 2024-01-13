@@ -5,7 +5,7 @@ const stateSchema = new mongoose.Schema({
         trim: true,
         required: true,
     },
-    countryId: {
+    country: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Country',
         required: true,

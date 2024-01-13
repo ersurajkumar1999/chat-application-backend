@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const citySchema = new mongoose.Schema({
-    name: {
+    cityName: {
         type: String,
         trim: true,
         required: true
