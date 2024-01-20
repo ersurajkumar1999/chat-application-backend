@@ -4,6 +4,7 @@ const { errorResponseMessage, successResponseMessage } = require('../helper/resp
 const { createUser, findUserByEmail, generateAccountNumber } = require('../services/userServices');
 const { createProfile } = require('../services/profileServices');
 const { comparePassword, hashedPassword } = require('../helper/PasswordManager');
+const { sendMail } = require('../helper/emailServices');
 
 const loginUser = async (req, res) => {
     try {
@@ -105,6 +106,7 @@ const adminLogin = async (req, res) => {
         if (!checkPassword) {
             return errorResponseMessage(res, "Incorrect Password", 401);
         }
+        const mailSend = await sendMail(res); 
         const token = jwt.sign(
             {
                 email: checkUserExists.email,
