@@ -14,6 +14,9 @@ const cityRoutes = require('./routes/cityRoutes');
 const friendShipRoutes = require('./routes/friendShipRoutes');
 const imageRoutes = require('./routes/imageRoutes');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+
 const app = express();
 dotenv.config();
 
@@ -34,6 +37,7 @@ app.use('/api/v1', cityRoutes);
 app.use('/api/v1', friendShipRoutes);
 app.use('/api/v1', imageRoutes);
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 connectToDB();
 const server = http.createServer(app);
 

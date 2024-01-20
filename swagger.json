@@ -1,0 +1,159 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Swagger CRUD",
+      "description": "Swagger CRUD description",
+      "contact": {
+        "email": "jadavshyamal.js@gmail.com"
+      }
+    },
+    "host": "localhost:5000",
+    "basePath": "/api/v1/users",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "User actions"
+      }
+    ],
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Get all users",
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": ["Users"],
+          "summary": "Create a new user",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "User object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "/{userId}": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Get a user by ID",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "ID of the user",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": ["Users"],
+          "summary": "Update a user by ID",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "ID of the user",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "user",
+              "in": "body",
+              "description": "Updated user object",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Users"],
+          "summary": "Delete a user by ID",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "description": "ID of the user",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
