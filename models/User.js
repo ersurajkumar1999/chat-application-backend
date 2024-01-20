@@ -61,6 +61,8 @@ const UserSchema = new mongoose.Schema({
     friendRequestsReceived: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FriendShip' }],
 
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
     
     token: {
         type: String,
